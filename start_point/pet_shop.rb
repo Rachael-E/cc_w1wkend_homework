@@ -8,16 +8,16 @@ end
 
 def add_or_remove_cash(pet_shop_object, value)
   pet_shop_object[:admin][:total_cash] += value
-#   # pet_shop_object[:admin][:total_cash] = pet_shop_object[:admin][:total_cash] + value
-#   # pet_shop_object[:admin][:total_cash] += value
-#   #
-#   # new_total = pet_shop_object[:admin][:total_cash] + value
-#   # pet_shop_object[:admin][:total_cash] = new_total
-#   #
-#   # p "yay"
-#   # p "total cash #{pet_shop_object[:admin][:total_cash] + 10} pounds"
-#   # pet_shop_object[:admin][:total_cash] += 50
-#   # p pet_shop_object[:admin][:total_cash]
+  #   # pet_shop_object[:admin][:total_cash] = pet_shop_object[:admin][:total_cash] + value
+  #   # pet_shop_object[:admin][:total_cash] += value
+  #   #
+  #   # new_total = pet_shop_object[:admin][:total_cash] + value
+  #   # pet_shop_object[:admin][:total_cash] = new_total
+  #   #
+  #   # p "yay"
+  #   # p "total cash #{pet_shop_object[:admin][:total_cash] + 10} pounds"
+  #   # pet_shop_object[:admin][:total_cash] += 50
+  #   # p pet_shop_object[:admin][:total_cash]
 end
 
 def add_or_remove_cash(pet_shop_object, value)
@@ -63,14 +63,27 @@ end
 
 # end
 #
-def find_pet_by_name(pet_shop, expected_name)
- total = []
-  for name in pet_shop[:pets]
-    if name[:name] == expected_name #total << name if name[:name] == expected_name
-      total.push(name)
+def find_pet_by_name(ps, expected_name)
+  result = nil
+  for pet in ps[:pets]
+    if pet[:name] == expected_name # total << name
+      result = pet
     end
   end
+  return result
+end
 
-    p total[0]
+def remove_pet_by_name(shop, expected_name)
+  number_pets = shop[:pets].length #this is the length of the pets array!
+  max_index = number_pets -1 #accounting for 6 (the length) minus 1 to return the actual number of indexes within the pets: array, which is 5.
 
+  for index in 0..max_index #index in this case is like a holding item.
+    pet_at_index = shop[:pets][index] # pet_at_index will return an integer!
+    p "A pet at index #{index} is called #{pet_at_index[:name]}"
+    if pet_at_index[:name] == expected_name
+      p "pet we're after is at index #{index}"
+      shop[:pets].delete_at(index)# this deletes the pet from the pet's array because it's sitting within the returned index number.
+      return
+    end
+  end
 end
