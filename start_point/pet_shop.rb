@@ -39,34 +39,38 @@ def stock_count(no_of_pets)
   no_of_pets[:pets].length # remember that .length returns the number of items within the pets array.
 end
 
-def pets_by_breed(pet, known_breed)
+def pets_by_breed(pet_shop, known_breed)
   # look in every pet, and check if breed is "short hair". If it is, stash in some container to save at the end. IF one is a shorthair, put it in results.
   total = []
 
-  for breed in pet[:pets]
+  for breed in pet_shop[:pets]
     if breed[:breed] == known_breed
-      total.push(breed[:breeds])
+      total.push(breed)
     end
   end
   return total
 end
 
-def pets_by_breed(pet, nil_breed)
+# def pets_by_breed(pet_shop, nil_breed)
+#  total = []
+#
+#  for breed in pet_shop[:pets]
+#    if breed[:breed] == nil_breed
+#      total.push(breed)
+#    end
+#  end
+# return total
+
+# end
+#
+def find_pet_by_name(pet_shop, expected_name)
  total = []
+  for name in pet_shop[:pets]
+    if name[:name] == expected_name #total << name if name[:name] == expected_name
+      total.push(name)
+    end
+  end
 
- for breed in pet[:pets]
-   if breed[:breed] == nil_breed
-     total.push(breed[:breeds])
-   end
- end
-return total
-
-end
-
-def find_pet_by_name(pet, expected_name)
-
-  for name in pet[:pets]
-    if name[:breeds] == expected_name
-
+    p total[0]
 
 end
