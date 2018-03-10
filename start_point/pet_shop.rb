@@ -51,6 +51,7 @@ def pets_by_breed(pet_shop, known_breed)
   return total
 end
 
+## The below isn't needed: the method above solves both tests. ##
 # def pets_by_breed(pet_shop, nil_breed)
 #  total = []
 #
@@ -74,15 +75,14 @@ def find_pet_by_name(ps, expected_name)
 end
 
 def remove_pet_by_name(shop, expected_name)
-  number_pets = shop[:pets].length #this is the length of the pets array!
-  max_index = number_pets -1 #accounting for 6 (the length) minus 1 to return the actual number of indexes within the pets: array, which is 5.
+  number_pets = shop[:pets].length
+  max_index = number_pets -1
 
-  for index in 0..max_index #index in this case is like a holding item.
-    pet_at_index = shop[:pets][index] # pet_at_index will return an integer!
-    #p "A pet at index #{index} is called #{pet_at_index[:name]}"
+  for index in 0..max_index
+    pet_at_index = shop[:pets][index] #
     if pet_at_index[:name] == expected_name
-      #p "pet we're after is at index #{index}"
-      shop[:pets].delete_at(index)# this deletes the pet from the pet's array because it's sitting within the returned index number.
+
+      shop[:pets].delete_at(index)
       return
     end
   end
@@ -97,8 +97,8 @@ def customer_pet_count(total_pet_of_cust)
     total_pet_of_cust[:pets].count
 end
 
-def add_pet_to_customer(first_cust, added_pet)
-  first_cust[:pets] << added_pet
+def add_pet_to_customer(cust_list, added_pet)
+  cust_list[:pets] << added_pet
 end
 
 
@@ -112,23 +112,59 @@ def customer_can_afford_pet(second_cust, desired_pet)
   end
 end
 
-def sell_pet_to_customer(ps, desired_pet, first_cust)
 
-  first_cust[:pets] << desired_pet
+def sell_pet_to_customer(ps, desired_pet, cust_list)
+
+
+# the below almost needs to be added for a true statement. I'm just not sure how to make desired_pet != Arthur, and for that to return as false. Same with final test: not sure how to make cust_list point to Zsolt rather than Craig.
+
+
+  cust_list[:pets] << desired_pet
 
   pet_sold_counter = 0
     ps[:pets].delete(desired_pet)
-    pet_sold_counter += first_cust[:pets].length
+    pet_sold_counter += cust_list[:pets].length
     ps[:admin][:pets_sold] += pet_sold_counter
 
   cash_flow = 0
     cash_flow += desired_pet[:price]
-    first_cust[:cash] -= cash_flow
+    cust_list[:cash] -= cash_flow
     ps[:admin][:total_cash] += cash_flow
 
 end
 
-# Me talking myself through the solution to the above with comments.
+
+
+
+## Me talking myself through the remove by pet name test ##
+# def remove_pet_by_name(shop, expected_name)
+#   number_pets = shop[:pets].length #this is the length of the pets array!
+#   max_index = number_pets -1 #accounting for 6 (the length) minus 1 to return the actual number of indexes within the pets: array, which is 5.
+#
+#   for index in 0..max_index #index in this case is like a holding item.
+#     pet_at_index = shop[:pets][index] # pet_at_index will return an integer!
+#     #p "A pet at index #{index} is called #{pet_at_index[:name]}"
+#     if pet_at_index[:name] == expected_name
+#       #p "pet we're after is at index #{index}"
+#       shop[:pets].delete_at(index)# this deletes the pet from the pet's array because it's sitting within the returned index number.
+#       return
+#     end
+#   end
+# end
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Me talking myself through the solution to the sell pet to customer when pet is found test.
 # def sell_pet_to_customer(ps, desired_pet, first_cust)
 #
 #     pet_sold_counter = 0
@@ -146,5 +182,5 @@ end
 #     first_cust[:cash] -= cash_flow
 #     ps[:admin][:total_cash] += cash_flow
 #
-# # if we can't find first_cust name, don't push desired_pet. pet_sold_counter should stay 0, as should cash flow, and the total amount of money that the shop has should remain 1900.
+# # if we can't find desired_pet, don't push it in. pet_sold_counter should stay 0, as should cash flow, and the total amount of money that the shop has should remain 1900.
 # end
