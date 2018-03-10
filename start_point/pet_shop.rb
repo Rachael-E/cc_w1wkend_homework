@@ -79,11 +79,55 @@ def remove_pet_by_name(shop, expected_name)
 
   for index in 0..max_index #index in this case is like a holding item.
     pet_at_index = shop[:pets][index] # pet_at_index will return an integer!
-    p "A pet at index #{index} is called #{pet_at_index[:name]}"
+    #p "A pet at index #{index} is called #{pet_at_index[:name]}"
     if pet_at_index[:name] == expected_name
-      p "pet we're after is at index #{index}"
+      #p "pet we're after is at index #{index}"
       shop[:pets].delete_at(index)# this deletes the pet from the pet's array because it's sitting within the returned index number.
       return
     end
   end
+end
+
+def add_pet_to_stock(ps, added_pet)
+  ps[:pets] << added_pet
+  #p ps[:pets]
+end
+
+def customer_pet_count(total_pet_of_cust)
+    total_pet_of_cust[:pets].count
+end
+
+def add_pet_to_customer(first_cust, added_pet)
+  first_cust[:pets] << added_pet
+end
+
+
+def customer_can_afford_pet(second_cust, desired_pet)
+
+  if second_cust[:cash] < desired_pet[:price]
+    return false
+  elsif second_cust[:cash] >= desired_pet[:price]
+    return true
+
+  end
+end
+
+def sell_pet_to_customer(ps, desired_pet_arthur, first_cust)
+  
+  pet_sold_counter = 0
+  first_cust[:pets] << desired_pet_arthur
+  ps[:pets].delete(desired_pet_arthur)
+  pet_sold_counter += first_cust[:pets].length
+  #p pet_sold_counter # this returns the pet sold counter as having a value of 1.
+  # p first_cust # this shows that Arthur has been added to Craig's pet list! Yay!
+  # p ps[:pets] # this shows that Arthur has been removed from pet shop pet's list! Double yay!!
+  ps[:admin][:pets_sold] += pet_sold_counter
+
+  # p ps[:admin][:pets_sold] # this shows that admin now have one pet sold! Yayy.
+cash_flow = 0
+  cash_flow += desired_pet_arthur[:price]
+  first_cust[:cash] -= cash_flow
+  ps[:admin][:total_cash] += cash_flow
+
+
 end
