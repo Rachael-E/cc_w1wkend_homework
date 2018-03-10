@@ -112,22 +112,39 @@ def customer_can_afford_pet(second_cust, desired_pet)
   end
 end
 
-def sell_pet_to_customer(ps, desired_pet_arthur, first_cust)
-  
+def sell_pet_to_customer(ps, desired_pet, first_cust)
+
+  first_cust[:pets] << desired_pet
+
   pet_sold_counter = 0
-  first_cust[:pets] << desired_pet_arthur
-  ps[:pets].delete(desired_pet_arthur)
-  pet_sold_counter += first_cust[:pets].length
-  #p pet_sold_counter # this returns the pet sold counter as having a value of 1.
-  # p first_cust # this shows that Arthur has been added to Craig's pet list! Yay!
-  # p ps[:pets] # this shows that Arthur has been removed from pet shop pet's list! Double yay!!
-  ps[:admin][:pets_sold] += pet_sold_counter
+    ps[:pets].delete(desired_pet)
+    pet_sold_counter += first_cust[:pets].length
+    ps[:admin][:pets_sold] += pet_sold_counter
 
-  # p ps[:admin][:pets_sold] # this shows that admin now have one pet sold! Yayy.
-cash_flow = 0
-  cash_flow += desired_pet_arthur[:price]
-  first_cust[:cash] -= cash_flow
-  ps[:admin][:total_cash] += cash_flow
-
+  cash_flow = 0
+    cash_flow += desired_pet[:price]
+    first_cust[:cash] -= cash_flow
+    ps[:admin][:total_cash] += cash_flow
 
 end
+
+# Me talking myself through the solution to the above with comments.
+# def sell_pet_to_customer(ps, desired_pet, first_cust)
+#
+#     pet_sold_counter = 0
+#     first_cust[:pets] << desired_pet
+#     ps[:pets].delete(desired_pet)
+#     pet_sold_counter += first_cust[:pets].length
+#     #p pet_sold_counter # this returns the pet sold counter as having a value of 1.
+#     # p first_cust # this shows that Arthur has been added to Craig's pet list! Yay!
+#     # p ps[:pets] # this shows that Arthur has been removed from pet shop pet's list! Double yay!!
+#     ps[:admin][:pets_sold] += pet_sold_counter
+#
+#     # p ps[:admin][:pets_sold] # this shows that admin now have one pet sold! Yayy.
+#     cash_flow = 0
+#     cash_flow += desired_pet[:price]
+#     first_cust[:cash] -= cash_flow
+#     ps[:admin][:total_cash] += cash_flow
+#
+# # if we can't find first_cust name, don't push desired_pet. pet_sold_counter should stay 0, as should cash flow, and the total amount of money that the shop has should remain 1900.
+# end
