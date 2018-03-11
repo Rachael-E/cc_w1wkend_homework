@@ -69,6 +69,7 @@ def find_pet_by_name(ps, expected_name)
   for pet in ps[:pets]
     if pet[:name] == expected_name # total << name
       result = pet
+      #p result
     end
   end
   return result
@@ -118,19 +119,26 @@ def sell_pet_to_customer(ps, desired_pet, cust_list)
 
 # the below almost needs to be added for a true statement. I'm just not sure how to make desired_pet != Arthur, and for that to return as false. Same with final test: not sure how to make cust_list point to Zsolt rather than Craig.
 
+  if desired_pet == nil
+  #p "There's no pet here!"
+    return
+  end
+
+  if desired_pet[:price] >= cust_list[:cash]
+    return
+  end
 
   cust_list[:pets] << desired_pet
-
+  desired_pet
   pet_sold_counter = 0
-    ps[:pets].delete(desired_pet)
-    pet_sold_counter += cust_list[:pets].length
-    ps[:admin][:pets_sold] += pet_sold_counter
+  ps[:pets].delete(desired_pet)
+  pet_sold_counter += cust_list[:pets].length
+  ps[:admin][:pets_sold] += pet_sold_counter
 
   cash_flow = 0
-    cash_flow += desired_pet[:price]
-    cust_list[:cash] -= cash_flow
-    ps[:admin][:total_cash] += cash_flow
-
+  cash_flow += desired_pet[:price]
+  cust_list[:cash] -= cash_flow
+  ps[:admin][:total_cash] += cash_flow
 end
 
 
